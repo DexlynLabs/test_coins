@@ -1,0 +1,14 @@
+[package]
+name = 'TestCoins'
+version = '0.1.1'
+
+[dependencies.SupraFramework]
+git = 'https://github.com/Entropy-Foundation/aptos-core.git'
+subdir = 'aptos-move/framework/supra-framework'
+rev = 'dev'
+
+[addresses]
+test_coins = "0xe5ae87f5c4bbe2c324bba7c498e32aae3f314a455b5caa84677e1160a29e8fdc"
+
+[dev-addresses]
+test_coins = "0xa01"

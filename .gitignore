@@ -1,0 +1,7 @@
+build/
+storage/
+.idea/
+**/smr_secret_key.pem
+**/smr_public_key.json
+**/supra_history
+**/supra_node_logs
