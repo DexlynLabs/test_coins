@@ -5,3 +5,4 @@ storage/
 **/smr_public_key.json
 **/supra_history
 **/supra_node_logs
+/shell_scripts
