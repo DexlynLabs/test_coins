@@ -1,14 +1,8 @@
 #!/usr/bin/expect -f
 
 set PASSWORD "1"
-set ADDRESS "0x063034ac8ad57879deac637736f9db2e19c29bb0adba9bf05b199c05af6d00f2"
+set ADDRESS "0x259a13f129172e76ef0de7e730cf6d22c16cfb04efcdd53fded5222a8fcdb852"
 # ------------------------------------------------------------------------------------------
-
-# # 10_000_000 USDC Mint
-# spawn supra-old move tool run --function-id 0xe5ae87f5c4bbe2c324bba7c498e32aae3f314a455b5caa84677e1160a29e8fdc::coins::mint_coin --type-args 0xe5ae87f5c4bbe2c324bba7c498e32aae3f314a455b5caa84677e1160a29e8fdc::coins::USDC --args address:$ADDRESS u64:10000000000000 --profile testnet-token
-# expect "Enter your password:"
-# send "$PASSWORD\r"
-# interact
 
 # 10_000_000 TestSupra Mint (8 decimal)
 spawn supra-old move tool run --function-id 0xe5ae87f5c4bbe2c324bba7c498e32aae3f314a455b5caa84677e1160a29e8fdc::coins::mint_coin --type-args 0xe5ae87f5c4bbe2c324bba7c498e32aae3f314a455b5caa84677e1160a29e8fdc::coins::TestSupra --args address:$ADDRESS u64:1000000000000000 --profile testnet-token
@@ -70,8 +64,8 @@ expect "Enter your password:"
 send "$PASSWORD\r"
 interact
 
-# 1_000_000 AVX Mint (9 decimal)
-spawn supra-old move tool run --function-id 0xe5ae87f5c4bbe2c324bba7c498e32aae3f314a455b5caa84677e1160a29e8fdc::coins::mint_coin --type-args 0xe5ae87f5c4bbe2c324bba7c498e32aae3f314a455b5caa84677e1160a29e8fdc::coins::AVX --args address:$ADDRESS u64:1000000000000000 --profile testnet-token
+# 1_000_000 AVAX Mint (9 decimal)
+spawn supra-old move tool run --function-id 0xe5ae87f5c4bbe2c324bba7c498e32aae3f314a455b5caa84677e1160a29e8fdc::coins::mint_coin --type-args 0xe5ae87f5c4bbe2c324bba7c498e32aae3f314a455b5caa84677e1160a29e8fdc::coins::AVAX --args address:$ADDRESS u64:1000000000000000 --profile testnet-token
 expect "Enter your password:"
 send "$PASSWORD\r"
 interact

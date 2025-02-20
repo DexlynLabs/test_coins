@@ -5,9 +5,6 @@ module test_coins::coins {
 
     use supra_framework::supra_account;
 
-    /// Represents test USDC coin.
-    struct USDC {}
-
     /// Represents test BTC coin.
     struct BTC {}
 
@@ -20,15 +17,12 @@ module test_coins::coins {
     /// Represents test DOGE coin.
     struct DOGE {}
 
-    struct TestUSDC {}
-
     struct TestSupra {}
+
+    struct Supra {}
 
     /// Represents test USDT coin.
     struct USDT {}
-
-    // it's unused, we can remove it if we are deploying new contract
-    struct XPR {}
 
     struct XRP {}
 
@@ -38,7 +32,7 @@ module test_coins::coins {
 
     struct LINK {}
 
-    struct AVX {}
+    struct AVAX {}
 
     /// Storing mint/burn capabilities for coins under user account.
     struct Caps<phantom CoinType> has key {
@@ -49,13 +43,11 @@ module test_coins::coins {
     /// Initialize module at the time of contract deployment
     fun init_module(token_admin: &signer) {
         register_coins(token_admin);
+        register_coins_new(token_admin);
     }
 
     /// Initializes All above coins.
     public entry fun register_coins(token_admin: &signer) {
-        let (usdc_b, usdc_f, usdc_m) =
-            coin::initialize<USDC>(token_admin,
-                utf8(b"USD Coin"), utf8(b"USDC"), 6, true);
 
         let (btc_b, btc_f, btc_m) =
             coin::initialize<BTC>(token_admin,
@@ -73,13 +65,11 @@ module test_coins::coins {
             coin::initialize<DOGE>(token_admin,
                 utf8(b"Tether"), utf8(b"DOGE"), 8, true);
 
-        coin::destroy_freeze_cap(usdc_f);
         coin::destroy_freeze_cap(btc_f);
         coin::destroy_freeze_cap(eth_f);
         coin::destroy_freeze_cap(sol_f);
         coin::destroy_freeze_cap(doge_f);
 
-        move_to(token_admin, Caps<USDC> { mint: usdc_m, burn: usdc_b });
         move_to(token_admin, Caps<BTC> { mint: btc_m, burn: btc_b });
         move_to(token_admin, Caps<ETH> { mint: eth_m, burn: eth_b });
         move_to(token_admin, Caps<SOL> { mint: sol_m, burn: sol_b });
@@ -87,49 +77,43 @@ module test_coins::coins {
     }
 
     entry fun register_coins_new(token_admin: &signer) {
-        // let (burn, freeze, mint) =
-        //     coin::initialize<USDT>(token_admin, utf8(b"USD Coin"), utf8(b"USDT"), 6, true);
-        // coin::destroy_freeze_cap(freeze);
-        // move_to(token_admin, Caps<USDT> { mint, burn });
-        //
-        // let (burn, freeze, mint) =
-        //     coin::initialize<BNB>(token_admin, utf8(b"Binance Coin"), utf8(b"BNB"), 9, true);
-        // coin::destroy_freeze_cap(freeze);
-        // move_to(token_admin, Caps<BNB> { mint, burn });
-        //
-        //
-        // let (burn, freeze, mint) =
-        //     coin::initialize<ADA>(token_admin, utf8(b"Cardano Coin"), utf8(b"ADA"), 6, true);
-        // coin::destroy_freeze_cap(freeze);
-        // move_to(token_admin, Caps<ADA> { mint, burn });
-        //
-        // let (burn, freeze, mint) =
-        //     coin::initialize<LINK>(token_admin, utf8(b"ChainLink Coin"), utf8(b"LINK"), 9, true);
-        // coin::destroy_freeze_cap(freeze);
-        // move_to(token_admin, Caps<LINK> { mint, burn });
-        //
-        // let (burn, freeze, mint) =
-        //     coin::initialize<AVX>(token_admin, utf8(b"Avalanche Coin"), utf8(b"AVX"), 9, true);
-        // coin::destroy_freeze_cap(freeze);
-        // move_to(token_admin, Caps<AVX> { mint, burn });
+        let (burn, freeze, mint) =
+            coin::initialize<USDT>(token_admin, utf8(b"USD Coin"), utf8(b"USDT"), 6, true);
+        coin::destroy_freeze_cap(freeze);
+        move_to(token_admin, Caps<USDT> { mint, burn });
 
-        // let (usdc_b, usdc_f, usdc_m) =
-        //     coin::initialize<TestUSDC>(token_admin,
-        //         utf8(b"TestUSD Coin"), utf8(b"TestUSD"), 6, true);
-        // coin::destroy_freeze_cap(usdc_f);
-        // move_to(token_admin, Caps<TestUSDC> { mint: usdc_m, burn: usdc_b });
+        let (burn, freeze, mint) =
+            coin::initialize<BNB>(token_admin, utf8(b"Binance Coin"), utf8(b"BNB"), 9, true);
+        coin::destroy_freeze_cap(freeze);
+        move_to(token_admin, Caps<BNB> { mint, burn });
 
-        // let (supra_b, supra_f, supra_m) =
-        //     coin::initialize<TestSupra>(token_admin,
-        //         utf8(b"TestSupra"), utf8(b"TestSupra"), 8, true);
-        // coin::destroy_freeze_cap(supra_f);
-        // move_to(token_admin, Caps<TestSupra> { mint: supra_m, burn: supra_b });
-        //
-        //
-        // let (burn, freeze, mint) =
-        //     coin::initialize<XRP>(token_admin, utf8(b"Proton Coin"), utf8(b"XRP"), 6, true);
-        // coin::destroy_freeze_cap(freeze);
-        // move_to(token_admin, Caps<XRP> { mint, burn });
+
+        let (burn, freeze, mint) =
+            coin::initialize<ADA>(token_admin, utf8(b"Cardano Coin"), utf8(b"ADA"), 6, true);
+        coin::destroy_freeze_cap(freeze);
+        move_to(token_admin, Caps<ADA> { mint, burn });
+
+        let (burn, freeze, mint) =
+            coin::initialize<LINK>(token_admin, utf8(b"ChainLink Coin"), utf8(b"LINK"), 9, true);
+        coin::destroy_freeze_cap(freeze);
+        move_to(token_admin, Caps<LINK> { mint, burn });
+
+        let (burn, freeze, mint) =
+            coin::initialize<AVAX>(token_admin, utf8(b"Avalanche Coin"), utf8(b"AVAX"), 9, true);
+        coin::destroy_freeze_cap(freeze);
+        move_to(token_admin, Caps<AVAX> { mint, burn });
+
+        let (supra_b, supra_f, supra_m) =
+            coin::initialize<TestSupra>(token_admin,
+                utf8(b"TestSupra"), utf8(b"TestSupra"), 8, true);
+        coin::destroy_freeze_cap(supra_f);
+        move_to(token_admin, Caps<TestSupra> { mint: supra_m, burn: supra_b });
+
+
+        let (burn, freeze, mint) =
+            coin::initialize<XRP>(token_admin, utf8(b"Proton Coin"), utf8(b"XRP"), 6, true);
+        coin::destroy_freeze_cap(freeze);
+        move_to(token_admin, Caps<XRP> { mint, burn });
     }
 
     /// Mints new coin `CoinType` on account `acc_addr`.
